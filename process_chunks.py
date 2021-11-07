@@ -27,7 +27,7 @@ def get_fulladdress(df):
     return df
 
 def geo_codeit(df):
-    user_agent = 'user_me_{}'.format(randint(10000,99999))
+    user_agent = 'doggie__{}'.format(randint(350,99999))
     locator = Nominatim(user_agent=user_agent)
 
     geocode = RateLimiter(locator.geocode, min_delay_seconds=5)
