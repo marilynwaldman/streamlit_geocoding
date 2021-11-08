@@ -1,12 +1,11 @@
-import datetime
 import os
 import pathlib
 import requests
 import zipfile
 import pandas as pd
-import pydeck as pdk
 import geopandas as gpd
 import streamlit as st
+# from : https://github.com/giswqs/streamlit-geospatial/blob/master/apps/housing.py
 
 STREAMLIT_STATIC_PATH = pathlib.Path(st.__path__[0]) / "static"
 # We create a downloads directory within the streamlit static asset directory
