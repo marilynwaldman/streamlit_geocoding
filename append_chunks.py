@@ -2,13 +2,13 @@ import pandas as pd
 import os
 from os import path
 
-def get_dir():
-    filename="voters.csv"
+def get_dir(filename):
+    
     split_names = filename.split(".")
     
-    dir = "./"
+    dir = "."
     if len(split_names) > 1:
-         dir = dir + split_names[0]
+         dir = dir + split_names[-2]
     else:
          dir = dir + filename
     return dir 
@@ -47,10 +47,12 @@ def get_found(out_df):
         return found_df, not_found_df
 
 def main():
-    dir = get_dir()
+    filename="./voters/runnotfound.csv"
+    dir = get_dir(filename)
     print(dir)
     outdir = dir + "/output"
     current_dir = dir + "/current"
+    print(outdir)
 
     geocoded_csv = dir + "/" + "geocoded.csv"
     found_csv = dir + "/" + "found.csv"

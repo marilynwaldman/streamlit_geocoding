@@ -6,13 +6,19 @@ from st_aggrid import AgGrid, DataReturnMode, GridUpdateMode, GridOptionsBuilder
 @st.cache()
 def get_data():
     
-    df = pd.DataFrame({'a': ['3180 E 6th Ave,Durango,CO,81301',
-                            '1364 Reese St, Silverton,CO,81433',
-                           '81 Ball Ln,Durango,CO,81301',
-                           '7405 Dellwood Rd NE, Albuquerque, NM,87110',
-                           '4945 Twin Lakes Rd, Boulder, CO, 80301']})
+    df = pd.DataFrame({'street1': ['3180 E 6th Ave',
+                            '1364 Reese St',
+                           '81 Ball Ln',
+                           '7405 Dellwood Rd NE',
+                           '4945 Twin Lakes Rd'],
+                        'city' : ['Durango',
+                           'Silverton',
+                           'Durango,CO',
+                           'Albuquerque',
+                           'Boulder']})
     #colnames=["Name","Street_address","City","State","ZIPcode","full_address"]                        
-    df = pd.read_csv('durango_addresses.csv',header=0) 
+    df.to_csv("./myaddresses.csv")
+    df = pd.read_csv('./myaddresses.csv',header=0) 
     #print(list(df.columns))                        
     return df
 

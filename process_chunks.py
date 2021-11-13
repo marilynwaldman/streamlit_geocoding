@@ -23,7 +23,7 @@ import matplotlib.pyplot as plt
 def get_fulladdress(df):
     
     df['full_address'] = df['Street address line 1 - Home'].astype('string') + ','  \
-                        + df['Zip/Postal Code - Home'].astype('string')
+                        + df['Zip/Postal Code - Home'].astype(int).astype('string')
     return df
 
 def geo_codeit(df):
@@ -55,14 +55,14 @@ def geo_codeit(df):
 
 
 
-def get_dir():
-    filename="voters.csv"
+def get_dir(filename):
+    
     split_names = filename.split(".")
     
-    dir = "./"
+    dir = "."
     if len(split_names) > 1:
          print("here")
-         dir = dir + split_names[0]
+         dir = dir + split_names[-2]
     else:
          dir = dir + filename
     return dir  
@@ -97,11 +97,13 @@ def process_files(indir, outdir, current_file, bad_files):
     return
 
 def main():
-    dir = get_dir()
+    filename="./voters/runnotfound.csv"
+    dir = get_dir(filename)
     indir = dir + "/input"
     outdir = dir + "/output"
     current_file = dir + "/current"
     bad_files = dir + "/badfiles"
+    print(indir)
 
     process_files(indir, outdir, current_file, bad_files)
 
