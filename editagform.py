@@ -1,37 +1,42 @@
 import streamlit as st
-import numpy as np
+#import numpy as np
 import pandas as pd
+import time 
 
 from st_aggrid import AgGrid, DataReturnMode, GridUpdateMode, GridOptionsBuilder
 from st_aggrid.shared import JsCode
 
-#@st.cache()
-def get_data():
+
+@st.cache()
+def get_data(file):
+    df  = pd.DataFrame() 
     
-    df3 = pd.DataFrame({'street': ['3180 E 6th Ave',
-                            '1364 Reese St',
-                           '81 Ball Ln',
-                           '7405 Dellwood Rd NE',
-                           '4945 Twin Lakes Rd'],
-                        'city' : ['Durango',
-                           'Silverton',
-                           'Durango,CO',
-                           'Albuquerque',
-                           'Boulder'],
-                        'zip' : ['81310', '81433', '81301', '87110', '980301'] 
-                          })
     #
     # colnames=["Name","Street_address","City","State","ZIPcode","full_address"]                        
-    #df3.to_csv("./myaddresses.csv",index=False)
-    df = pd.read_csv('./myaddresses.csv',header=0) 
+    #df3.to_csv("./myaddresses.csv",index=False) 
+    df = pd.read_csv(file, low_memory=False)
+    with st.spinner('Reading CSV File...'):
+            time.sleep(5)
+            st.success('Done!')
+    st.write(df.head())
+    st.write(df.shape)
     #print(list(df.columns))                        
     return df
 
 if __name__ == "__main__":
     reload_data = False
-    df = get_data()
+    df  = pd.DataFrame() 
+    file = st.file_uploader("Choose a file")
+    if file is not None:
+        file.seek(0)
+        
+        df = pd.read_csv(file, low_memory=False)
+        with st.spinner('Reading CSV File...'):
+            time.sleep(5)
+            st.success('Done!')
+            
     #st.set_page_config(page_title="Netflix Shows", layout="wide") 
-    st.title("Netlix shows analysis")
+    st.title("AG Grid Example")
 
     height = st.sidebar.slider('Height', min_value=100, max_value=800, value=400)
 
@@ -103,11 +108,11 @@ if __name__ == "__main__":
     if button:
          print(grid_return['data'])
          print(grid_return['data'].dtypes)
-         grid_return['data'].to_csv("./myaddresses.csv",index=False)
-         st.write(grid_return['data'])
+         df = grid_return['data']
+         st.download_button(label='Download CSV',data=df.to_csv(),mime='text/csv',file_name='address.csv')
+         df.to_csv("./myaddresses.csv",index=False)
+         st.write(df)
 
 
-    st.sidebar.markdown("example controls:")
-    use_fixed_key = st.sidebar.checkbox("Use fixed key in AgGrid call", value=True)
 
 
