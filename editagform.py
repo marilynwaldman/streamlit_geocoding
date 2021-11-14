@@ -97,7 +97,7 @@ if __name__ == "__main__":
              gridOptions=gridOptions,
              editable=True,
              height=height, 
-             fit_columns_on_grid_load=True,
+             fit_columns_on_grid_load=False,
              allow_unsafe_jscode=True
          )
          button = st.form_submit_button("Save Changes")
