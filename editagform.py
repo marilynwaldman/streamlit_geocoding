@@ -38,7 +38,7 @@ if __name__ == "__main__":
     #st.set_page_config(page_title="Netflix Shows", layout="wide") 
     st.title("AG Grid Example")
 
-    height = st.sidebar.slider('Height', min_value=100, max_value=800, value=400)
+    height = st.sidebar.slider('Height', min_value=100, max_value=800, value=200)
 
     st.subheader("Editable Grids")
     cellsytle_jscode = JsCode(
@@ -100,18 +100,12 @@ if __name__ == "__main__":
              fit_columns_on_grid_load=True,
              allow_unsafe_jscode=True
          )
-         button = st.form_submit_button()
-    #st.text("Grid  Return")
-    #print("before ************")
-    #print(df)
-    #grid_return['data'].to_csv("./myaddresses.csv")
+         button = st.form_submit_button("Save Changes")
+    
     if button:
-         print(grid_return['data'])
-         print(grid_return['data'].dtypes)
          df = grid_return['data']
          st.download_button(label='Download CSV',data=df.to_csv(),mime='text/csv',file_name='address.csv')
-         df.to_csv("./myaddresses.csv",index=False)
-         st.write(df)
+         #st.write(df)
 
 
 
