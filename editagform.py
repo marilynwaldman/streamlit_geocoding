@@ -44,10 +44,11 @@ if __name__ == "__main__":
     cellsytle_jscode = JsCode(
          """
     function(params) {
-         if (params.value.includes('Silverton')) {
+         if (params.value.includes('Apt')
+            || params.value.includes('Unit')) {
              return {
-                 'color': 'white',
-                 'backgroundColor': 'darkred'
+                 'color': 'black',
+                 'backgroundColor': 'pink'
              }
          } else {
              return {
@@ -73,13 +74,45 @@ if __name__ == "__main__":
         else {
              return {
                  'color': 'black',
-                 'backgroundColor': 'lightgrey'
+                 'backgroundColor': 'pink'
              }
         } 
          
     };
      """
     )
+
+    cellsytle_jsname = JsCode(
+         """
+
+    function(params) {
+
+        var zip = params.node.data.zip;
+        console.log({
+        "params": params,
+        "data": params.data,
+        "zip": zip
+         });
+
+        if (zip == "81301") {
+    
+            return {
+                 'color': 'black',
+                 'backgroundColor': 'lightgreen'
+             }
+        }
+        else {
+             return {
+                 'color': 'black',
+                 'backgroundColor': 'white'
+             }
+        } 
+         
+    };
+     """
+    ) 
+
+    
     
     gb = GridOptionsBuilder.from_dataframe(df)
     
@@ -88,8 +121,9 @@ if __name__ == "__main__":
    
     for col in df.columns:
         gb.configure_column(col, editable=True)
-    gb.configure_column("city", cellStyle=cellsytle_jscode)  
-    gb.configure_column("zip", cellStyle=cellsytle_jszipcode)  
+    gb.configure_column("street_address", cellStyle=cellsytle_jscode)  
+    gb.configure_column("zip", cellStyle=cellsytle_jszipcode) 
+    gb.configure_column("name", cellStyle=cellsytle_jsname) 
     gridOptions = gb.build()
     with st.form('example form') as f:
          grid_return = AgGrid(df,
