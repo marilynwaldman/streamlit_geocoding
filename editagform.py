@@ -7,6 +7,7 @@ from st_aggrid import AgGrid, DataReturnMode, GridUpdateMode, GridOptionsBuilder
 from st_aggrid.shared import JsCode
 
 
+
 @st.cache()
 def get_data(file):
     df  = pd.DataFrame() 
@@ -45,7 +46,9 @@ if __name__ == "__main__":
          """
     function(params) {
          if (params.value.includes('Apt')
-            || params.value.includes('Unit')) {
+            || params.value.includes('Unit')
+            || params.value.includes('apt')
+            || params.value.includes('unit')){
              return {
                  'color': 'black',
                  'backgroundColor': 'pink'
@@ -81,6 +84,7 @@ if __name__ == "__main__":
     };
      """
     )
+
 
     cellsytle_jsname = JsCode(
          """
