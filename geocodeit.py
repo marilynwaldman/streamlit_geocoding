@@ -11,9 +11,9 @@ from geopy.extra.rate_limiter import RateLimiter
 
 def create_address_col(df):
     st.sidebar.title("Select Address columns")
-    st.sidebar.info("You need to select address column (Street name and number), post code and City")
+    st.sidebar.info("Select columns:  Street Address, City, State and Zip Code")
     
-    address_name = st.sidebar.selectbox("Select Address column", df.columns.tolist())
+    address_name = st.sidebar.selectbox("Select Address Column", df.columns.tolist())
     city = st.sidebar.selectbox("Select City Column", df.columns.tolist())
     state = st.sidebar.selectbox("Select the State Column", df.columns.tolist())
     zip_code = st.sidebar.selectbox("Select the Zip Code Column", df.columns.tolist())
